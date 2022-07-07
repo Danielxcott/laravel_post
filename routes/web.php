@@ -1,7 +1,11 @@
 <?php
 
+// use App\Http\Controllers\PostController;
+
 use App\Http\Controllers\PostController;
-// use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\UserController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -27,3 +31,6 @@ use App\Http\Controllers\PostController;
 // Route::get('/edit/{id}',[PostController::class,'edit'])->name('post.edit');
 // Route::put('/update/{id}',[PostController::class,'update'])->name('post.update');
 // //use put method for updating specific data from database and aslo have to use form and 'put' method in there!!
+Route::redirect('/','post');
+Route::get("/users",[UserController::class,'index'])->name("user.index");
+Route::resource('post',PostController::class);

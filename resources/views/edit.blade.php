@@ -15,16 +15,33 @@
                                 <a href="{{ route('post.index') }}" class="btn btn-primary">Back to Home</a>
                             </div>
                         </div>
+                        @if ($errors->any())
+               @foreach ($errors->all() as $error )
+                   
+               @endforeach
+               @endif
                         <form method="post" action="{{ route('post.update',$post->id) }}">
                             @csrf
                             @method('put')
                             <div class="mb-2">
                                 <label class="form-label" for="title">Title</label>
-                                <input type="text" class="form-control" value="{{ $post->title }}" name="title" id="title" >
+                                <input type="text" class="form-control @error('title')
+                                is-invalid @enderror" value="{{ old('title',$post->title) }}" name="title" id="title" >
+                                @error('title')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <div class="mb-2">
                                 <label class="form-label" for="describe">Description</label>
-                                <textarea type="text" class="form-control" name="describe" id="describe" >{{ $post->description }}</textarea>
+                                <textarea type="text" class="form-control @error('describe')
+                                is-invalid @enderror" name="describe" id="describe" >{{ old('describe',$post->description) }}</textarea>
+                                @error('describe')
+                                <div class="invalid-feedback">
+                                    {{ $message }}
+                                </div>
+                                @enderror
                             </div>
                             <button class="btn btn-primary" type="submit">Upload</button>
                         </form> 
