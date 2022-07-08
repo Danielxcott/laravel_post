@@ -15,7 +15,7 @@ class PostController extends Controller
      */
     public function index()
     {   
-        $posts = Post::paginate(5);
+        // $posts = Post::paginate(5);
         // $posts = Post::where("id",'<',5)->orderByRaw('id DESC')->get();
         // $posts = Post::where("id",5)->first()->description;
         // $posts = Post::orWhere('id',5)->orWhere('title','abdx')->dd();
@@ -23,11 +23,13 @@ class PostController extends Controller
         // $posts = Post::whereBetween('id',[7,20])->latest('id')->get();
         // $keyword = request('keyword');
         // $posts = Post::where("title","like","%$keyword%")->get();
-            // $posts = Post::when(request('keyword'),function($q){
-                        // $keyword = request("keyword");
-            //     $q->where('title','like',"%$keyword%")
-            //     ->orWhere('description','like',"%$keyword%");
-            // })->get();
+            $posts = Post::when(request('keyword'),function($q){
+                        $keyword = request("keyword");
+                $q->where('title','like',"%$keyword%")
+                ->orWhere('description','like',"%$keyword%");
+            })->orderBy('id','desc')->paginate(5)->withQueryString(); //withquerystring for url keyword
+
+            // return dd($posts);
             // $posts = Post::where("id","<",10)->get()->map(function($post){
             //     $post->title = strtoupper($post->title);
             //     return $post;

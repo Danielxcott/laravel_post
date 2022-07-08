@@ -7,6 +7,7 @@
                 
                 <div class="card my-5">
                     <div class="card-body">
+                        
                         <div class="d-flex justify-content-between align-items-center">
                             <div>
                                 <h1 class="mb-0">Hello</h1>
@@ -24,6 +25,14 @@
                 <span class="alert alert-success d-block">{{ session('status') }}</span>
                 @endif
                </div>
+               <div>
+                <form action="{{ route('post.index') }}" method="get">
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" name="keyword" placeholder="Search a post" value="{{ old('keyword',request('keyword')) }}" aria-label="Recipient's username" aria-describedby="button-addon2">
+                        <button class="btn btn-outline-secondary" type="submit" id="button-addon2">Search</button>
+                      </div>
+                </form>
+            </div>
                 @foreach ( $posts as $post )
                 <div class="card mb-3">
                     <div class="card-body">
@@ -45,6 +54,7 @@
                 </div>
             @endforeach
                 <div class="">
+                    {{-- {{ $posts->appends(request()->query())->links() }}  keyword and search page url --}}
                     {{ $posts->links() }} 
                 </div>
             </div>
